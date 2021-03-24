@@ -1,0 +1,146 @@
+error: --- Error -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- nix
+builder for '/nix/store/w2qfz2g7rsmspqznf308r9khxd8jg25q-helloworld-plan-to-nix-pkgs.drv' failed with exit code 1; last 4 log lines:
+  Using index-state 2021-03-23T00:00:00Z
+  No cabal.project file or cabal file matching the default glob './*.cabal' was found.
+  Please create a package description file <pkgname>.cabal or a cabal.project file referencing the packages you want to build.
+  
+-------------------------------------------------------------------------------------------- show-trace ---------------------------------------------------------------------------------------------
+trace: while evaluating anonymous lambda
+at: (5:1) in file: /nix/store/18qyfjlq4aph9hg10jzaprgg0iwgxv1i-source/lib/import-and-filter-project.nix
+
+     4| { pkgs, haskellLib }:
+     5| { projectNix, sourceRepos, src }:
+      | ^
+     6| let
+
+trace: from call site
+at: (503:27) in file: /nix/store/18qyfjlq4aph9hg10jzaprgg0iwgxv1i-source/overlays/haskell.nix
+
+   502|               callProjectResults = callCabalProjectToNix args;
+   503|               plan-pkgs = importAndFilterProject {
+      |                           ^
+   504|                 inherit (callProjectResults) projectNix sourceRepos src;
+
+trace: while evaluating the attribute 'hsPkgs'
+at: (526:43) in file: /nix/store/18qyfjlq4aph9hg10jzaprgg0iwgxv1i-source/overlays/haskell.nix
+
+   525|               project = addProjectAndPackageAttrs rec {
+   526|                   inherit (pkg-set.config) hsPkgs;
+      |                                           ^
+   527|                   inherit pkg-set;
+
+trace: while evaluating the attribute 'hsPkgs'
+at: (546:15) in file: /nix/store/18qyfjlq4aph9hg10jzaprgg0iwgxv1i-source/overlays/haskell.nix
+
+   545|             in rawProject // rec {
+   546|               hsPkgs = final.lib.mapAttrs (packageName: package':
+      |               ^
+   547|                 if package' == null
+
+trace: while evaluating 'cabalProject'
+at: (688:13) in file: /nix/store/18qyfjlq4aph9hg10jzaprgg0iwgxv1i-source/overlays/haskell.nix
+
+   687|         cabalProject =
+   688|             { src, compiler-nix-name, ... }@args':
+      |             ^
+   689|             let
+
+trace: from call site
+at: (20:26) in file: /nix/store/jkssjh4dc8mxfbfsdqn1x3v4vmwh0ca3-source/flake.nix
+
+    19| 
+    20|             helloworld = final.haskell-nix.cabalProject {
+      |                          ^
+    21|               # If these null parameters are absent, you get a RestrictedPathError error
+
+trace: while evaluating the attribute 'helloworld.flake'
+at: (20:13) in file: /nix/store/jkssjh4dc8mxfbfsdqn1x3v4vmwh0ca3-source/flake.nix
+
+    19| 
+    20|             helloworld = final.haskell-nix.cabalProject {
+      |             ^
+    21|               # If these null parameters are absent, you get a RestrictedPathError error
+
+trace: while evaluating anonymous lambda
+at: (13:52) in file: /nix/store/jkssjh4dc8mxfbfsdqn1x3v4vmwh0ca3-source/flake.nix
+
+    12|   outputs = { self, nixpkgs, flake-utils, haskellNix, flake-compat }:
+    13|     flake-utils.lib.eachSystem [ "x86_64-linux" ] (system:
+      |                                                    ^
+    14|     let
+
+trace: from call site
+at: (69:17) in file: /nix/store/432b727f7mcyq9q6bfdw7w4rr3llhh92-source/default.nix
+
+    68|         let
+    69|           ret = f system;
+      |                 ^
+    70|           op = attrs: key:
+
+trace: while evaluating 'op'
+at: (67:19) in file: /nix/store/432b727f7mcyq9q6bfdw7w4rr3llhh92-source/default.nix
+
+    66|     let
+    67|       op = attrs: system:
+      |                   ^
+    68|         let
+
+trace: from call site
+at: (79:5) in file: /nix/store/432b727f7mcyq9q6bfdw7w4rr3llhh92-source/default.nix
+
+    78|     in
+    79|     builtins.foldl' op { } systems
+      |     ^
+    80|   ;
+
+trace: while evaluating 'eachSystem'
+at: (65:25) in file: /nix/store/432b727f7mcyq9q6bfdw7w4rr3llhh92-source/default.nix
+
+    64|   #
+    65|   eachSystem = systems: f:
+      |                         ^
+    66|     let
+
+trace: from call site
+at: (13:5) in file: /nix/store/jkssjh4dc8mxfbfsdqn1x3v4vmwh0ca3-source/flake.nix
+
+    12|   outputs = { self, nixpkgs, flake-utils, haskellNix, flake-compat }:
+    13|     flake-utils.lib.eachSystem [ "x86_64-linux" ] (system:
+      |     ^
+    14|     let
+
+trace: while evaluating 'outputs'
+at: (12:13) in file: /nix/store/jkssjh4dc8mxfbfsdqn1x3v4vmwh0ca3-source/flake.nix
+
+    11| 
+    12|   outputs = { self, nixpkgs, flake-utils, haskellNix, flake-compat }:
+      |             ^
+    13|     flake-utils.lib.eachSystem [ "x86_64-linux" ] (system:
+
+trace: from call site
+at: (45:21) from string
+
+    44| 
+    45|           outputs = flake.outputs (inputs // { self = result; });
+      |                     ^
+    46| 
+
+trace: while evaluating anonymous lambda
+at: (10:13) from string
+
+     9|     builtins.mapAttrs
+    10|       (key: node:
+      |             ^
+    11|         let
+
+trace: from call site
+trace: while evaluating the attribute 'root'
+trace: while evaluating anonymous lambda
+at: (2:23) from string
+
+     1| 
+     2| lockFileStr: rootSrc: rootSubdir:
+      |                       ^
+     3| 
+
+trace: from call site
